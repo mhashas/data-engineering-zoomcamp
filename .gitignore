@@ -1,12 +1,16 @@
 data/postgres_data/*
 data/raw_data/*
-env/*
 homeworks/*
 
+# python environment and env variables
+env/*
 *.env
 
 # mac specifics
 .DS_Store
+
+# vscode specifics
+.vscode
 
 # keep repo folder structure
 !.gitkeep
