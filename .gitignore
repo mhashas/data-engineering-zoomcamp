@@ -1,0 +1,9 @@
+data/*
+env/*
+homeworks/*
+
+# mac specifics
+.DS_Store
+
+# keep repo folder structure
+!.gitkeep
