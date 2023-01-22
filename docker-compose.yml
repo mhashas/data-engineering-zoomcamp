@@ -9,8 +9,10 @@ services:
       - ./data/postgres_data:/var/lib/postgresql/data:rw
     ports:
       - ${POSTGRES_PORT}:5432
-    networks:
-      - pg-network
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -d ${POSTGRES_DB}'"]
+      interval: 10s
+      retries: 5
 
   pg-admin:
     image: dpage/pgadmin4
@@ -23,18 +25,12 @@ services:
     - ./data/pgadmin_data:/var/lib/pgadmin
     depends_on:
       - pg-database
-    networks:
-      - pg-network
 
   data-ingestion:
     build:
       dockerfile: week1-data-ingestion-pipeline/Dockerfile
-    networks:
-      - pg-network
     depends_on:
-      - pg-database
+      pg-database:
+        condition: service_healthy
     command: ["--csv_path", "green_tripdata_2019-01.csv.gz", "--host", "pg-database"]
-
-networks:
-  pg-network:
 
