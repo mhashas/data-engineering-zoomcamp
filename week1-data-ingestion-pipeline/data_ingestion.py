@@ -18,8 +18,6 @@ def main(args: Namespace):
     df_iter = pd.read_csv(args.csv_path, iterator=True, chunksize=100000)
     
     for item in tqdm(df_iter):
-        item.lpep_pickup_datetime = pd.to_datetime(item.lpep_pickup_datetime)
-        item.lpep_dropoff_datetime = pd.to_datetime(item.lpep_dropoff_datetime)
         item.to_sql(name=args.table_name, con=engine, if_exists='append')
 
 if __name__ == "__main__":

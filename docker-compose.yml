@@ -10,7 +10,7 @@ services:
     ports:
       - ${POSTGRES_PORT}:5432
     healthcheck:
-      test: ["CMD-SHELL", "sh -c 'pg_isready -d ${POSTGRES_DB}'"]
+      test: [ "CMD-SHELL", "sh -c 'pg_isready -d ${POSTGRES_DB}'" ]
       interval: 10s
       retries: 5
 
@@ -22,7 +22,7 @@ services:
     ports:
       - ${PGADMIN_PORT}:80
     volumes:
-    - ./data/pgadmin_data:/var/lib/pgadmin
+      - ./data/pgadmin_data:/var/lib/pgadmin
     depends_on:
       - pg-database
 
@@ -32,5 +32,6 @@ services:
     depends_on:
       pg-database:
         condition: service_healthy
-    command: ["--csv_path", "green_tripdata_2019-01.csv.gz", "--host", "pg-database"]
-
+    command: >
+      sh -c "python data_ingestion.py --table_name green_trip_data --csv_path green_tripdata_2019-01.csv.gz --host pg-database &&
+             python data_ingestion.py --table_name taxi_zone_lookup --csv_path taxi+_zone_lookup.csv --host pg-database"
