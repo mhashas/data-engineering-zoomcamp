@@ -2,6 +2,7 @@ data/postgres_data/*
 data/pgadmin_data/*
 data/raw_data/*
 homeworks/*
+keys/*
 
 # python environment and env variables
 env/*
