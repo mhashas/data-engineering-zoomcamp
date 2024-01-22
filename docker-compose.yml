@@ -33,5 +33,5 @@ services:
       pg-database:
         condition: service_healthy
     command: >
-      sh -c "python data_ingestion.py --table_name green_trip_data --csv_path green_tripdata_2019-01.csv.gz --host pg-database &&
+      sh -c "python data_ingestion.py --table_name green_trip_data --csv_path green_tripdata_2019-09.csv.gz --host pg-database &&
              python data_ingestion.py --table_name taxi_zone_lookup --csv_path taxi+_zone_lookup.csv --host pg-database"
