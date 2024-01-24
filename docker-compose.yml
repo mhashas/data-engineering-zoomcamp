@@ -28,7 +28,7 @@ services:
 
   data-ingestion:
     build:
-      dockerfile: week1-data-ingestion-pipeline/Dockerfile
+      dockerfile: src/week1-data-ingestion/Dockerfile
     depends_on:
       pg-database:
         condition: service_healthy
